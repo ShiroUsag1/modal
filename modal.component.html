@@ -1,0 +1,41 @@
+<div class="modalModelo" (transitionend)="iniciarSegundaTransicao()">
+  <div class="modal-content">
+    <div class="modal-header p-3 pb-2 border-bottom border-secondary-subtle">
+      <h5>
+        {{ dados.titulo }}
+      </h5>
+      <button type="button" class="btn-close" (click)="fecharModal()"></button>
+    </div>
+    <div class="modal-body p-3">
+      <div *ngIf="bodyTemplate">
+        <ng-content [select]="[bodyTemplateName]"></ng-content>
+      </div>
+      <div *ngIf="!bodyTemplate">
+        <div class="row">
+          <div [attr.class]="dados.body.img !== '' ? 'col-6' : 'd-none'">
+            <img
+              [attr.src]="dados.body.img"
+              alt=""
+              class="imgModal"
+            />
+          </div>
+          <div class="col">
+            <p *ngFor="let linha of dados.body.infosEscritas">{{ linha }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      [attr.class]="
+        'border-top border-secondary-subtle p-3 ' +
+        (dados.botao.length > 1
+          ? 'd-flex justify-content-between'
+          : 'modal-footer')
+      "
+    >
+      <button class="btn btn-primary" (click)="funcaoBotao(botao.label)" *ngFor="let botao of dados.botao">
+        <i [attr.class]="'bi ' + botao.icone"></i> {{ botao.label }}
+      </button>
+    </div>
+  </div>
+</div>
